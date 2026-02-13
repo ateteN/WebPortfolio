@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atete Norette | Portfolio</title>
+    <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+    <div class="cursor"></div>
+
+    <nav>
+        <div class="logo">Atete Norette</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About Me</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#">Blog</a>
+        </div>
+        <button class="hire-btn">HIRE ME ↗</button>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>Creative <span class="gradient-text">Designer</span></h1>
+            <p>Crafting digital experiences with depth and precision.</p>
+        </section>
+
+        <section class="project-grid" id="portfolio">
+            <div class="project-card">
+                <div class="card-inner">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Project 1">
+                    <div class="card-overlay">
+                        <span>APP / DEVELOPMENT</span>
+                        <h3>ONLINE LEARNING PLATFORM</h3>
+                        <div class="view-btn">↗</div>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="card-inner">
+                    <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80" alt="Project 2">
+                    <div class="card-overlay">
+                        <span>ECO-DESIGN</span>
+                        <h3>SUSTAINABLE FUTURE</h3>
+                        <div class="view-btn">↗</div>
+                    </div>
+                </div>
+            </div>
+                        <div class="project-card">
+                <div class="card-inner">
+                    <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80" alt="Project 2">
+                    <div class="card-overlay">
+                        <span>ECO-DESIGN</span>
+                        <h3>SUSTAINABLE FUTURE</h3>
+                        <div class="view-btn">↗</div>
+                    </div>
+                </div>
+            </div>
+                        <div class="project-card">
+                <div class="card-inner">
+                    <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80" alt="Project 2">
+                    <div class="card-overlay">
+                        <span>ECO-DESIGN</span>
+                        <h3>SUSTAINABLE FUTURE</h3>
+                        <div class="view-btn">↗</div>
+                    </div>
+                </div>
+            </div>
+                        <div class="project-card">
+                <div class="card-inner">
+                    <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80" alt="Project 2">
+                    <div class="card-overlay">
+                        <span>ECO-DESIGN</span>
+                        <h3>SUSTAINABLE FUTURE</h3>
+                        <div class="view-btn">↗</div>
+                    </div>
+                </div>
+            </div>
+                        <div class="project-card">
+                <div class="card-inner">
+                    <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80" alt="Project 2">
+                    <div class="card-overlay">
+                        <span>ECO-DESIGN</span>
+                        <h3>SUSTAINABLE FUTURE</h3>
+                        <div class="view-btn">↗</div>
+                    </div>
+                </div>
+            </div>
+            </section>
+    </main>
+
+    <script>
+        // Custom Cursor Logic
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Add hover class for interactive elements
+        const links = document.querySelectorAll('a, button, .project-card');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            link.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+    </script>
+</body>
+</html>
