@@ -2,15 +2,21 @@
     --bg: #f8f9fa;
     --text: #1a1a1a;
     --accent: #000;
-    --glass: rgba(255, 255, 255, 0.4);
+    --glass: rgba(255, 255, 255, 0.3);
+    /* --font-main:; */
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 * {
+    cursor: none; /* Hide default mouse */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', -apple-system, sans-serif;
-    cursor: none; /* Hide default cursor */
+
 }
 
 body {
@@ -19,23 +25,22 @@ body {
     overflow-x: hidden;
 }
 
-/* --- Custom Cursor --- */
+/* --- Custom Negative Cursor --- */
 .cursor {
     width: 20px;
     height: 20px;
-    background: rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--accent);
+    background: white; /* Inversion works best with white */
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
     z-index: 9999;
-    transition: transform 0.2s ease, background 0.2s ease;
+    mix-blend-mode: difference; /* This creates the negative effect */
+    transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     transform: translate(-50%, -50%);
 }
 
 .cursor.hovered {
-    transform: translate(-50%, -50%) scale(3);
-    background: rgba(0, 0, 0, 0.05);
+    transform: translate(-50%, -50%) scale(5);
 }
 
 /* --- Navigation --- */
@@ -44,6 +49,8 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 2rem 5%;
+    position: relative;
+    z-index: 10;
 }
 
 .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; }
@@ -52,8 +59,8 @@ nav {
     text-decoration: none;
     color: var(--text);
     margin: 0 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 600;
     text-transform: uppercase;
 }
 
@@ -66,63 +73,126 @@ nav {
     font-weight: bold;
 }
 
-/* --- Hero Section --- */
+/* --- Hero Section & Glassmorphism --- */
 .hero {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 100px 5%;
+    position: relative;
+    overflow: hidden;
 }
 
-.hero h1 { font-size: 5rem; line-height: 1; }
-
-.gradient-text {
-    background: linear-gradient(45deg, #74ebd5, #acb6e5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.hero-content {
+    position: relative;
+    z-index: 5;
 }
 
-/* --- The 2x2 3D Grid --- */
+.hero h1 { 
+    font-size: clamp(3rem, 8vw, 6rem); 
+    line-height: 1; 
+    display: inline-block;
+    transition: transform 0.1s ease-out; /* For magnetic effect */
+}
+
+/* --- Updated Blob Styles --- */
+.glass-shape {
+    position: fixed;
+    /* Increase the blur on the shape itself for that soft look */
+    filter: blur(80px); 
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    z-index: -1;
+    animation: morph 15s infinite ease-in-out alternate;
+    /* Optional: reduce opacity to make them even more subtle */
+    opacity: 0.4; 
+}
+
+/* Shape 1: Darker Grayish Tone */
+.shape-1 { 
+    width: 500px; 
+    height: 500px; 
+    top: -10%; 
+    left: -5%; 
+    background: purple; /* Mid-gray */
+}
+
+/* Shape 2: Lighter Grayish Tone */
+.shape-2 { 
+    width: 450px; 
+    height: 450px; 
+    bottom: -5%; 
+    right: 5%; 
+    background: indigo; /* Light gray */
+    animation-delay: -5s; 
+}
+
+.shape-3 {
+    width: 400px;
+    height: 400px;
+    top: 40%;
+    right: -10%;
+    background: #ff00ff;
+    animation-delay: -2s;
+}
+
+.shape-4 {
+    width: 350px;
+    height: 350px;
+    bottom: 20%;
+    left: 10%;
+    background: #00ffff;
+    animation-delay: -8s;
+}
+
+@keyframes morph {
+    0% { 
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; 
+        transform: translate(0, 0) rotate(0deg) scale(1); 
+    }
+    33% {
+        transform: translate(150px, -50px) rotate(40deg) scale(1.1);
+    }
+    66% {
+        transform: translate(-100px, 100px) rotate(-20deg) scale(0.9);
+    }
+    100% { 
+        border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; 
+        transform: translate(100px, 150px) rotate(90deg) scale(1.2); 
+    }
+}
+/* --- Project Grid (As per your design) --- */
 .project-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
-    padding: 100px 10%;
-    perspective: 1200px; /* Essential for 3D */
+    padding: 50px 10%;
+    perspective: 1200px;
 }
 
 .project-card {
     position: relative;
-    height: 500px;
+    height: 350px; /* Reduced from 500px to be more rectangular */
     border-radius: 20px;
     overflow: hidden;
     transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Tilt effects */
-.project-card:nth-child(odd) { transform: rotateY(10deg); }
-.project-card:nth-child(even) { transform: rotateY(-10deg); }
+.project-card:nth-child(odd) { transform: rotateY(5deg); }
+.project-card:nth-child(even) { transform: rotateY(-5deg); }
 
 .project-card:hover {
-    transform: rotateY(0deg) scale(1.02) translateZ(20px);
+    transform: rotateY(0deg) scale(1.02);
     z-index: 10;
 }
 
-.card-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
+.card-inner { width: 100%; height: 100%; position: relative; }
+.card-inner img { width: 100%; height: 100%; object-fit: cover; }
 
-.card-inner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Hover Overlay with Blur */
 .card-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.6); /* Slightly darker for better readability */
     backdrop-filter: blur(0px);
     display: flex;
     flex-direction: column;
@@ -131,30 +201,153 @@ nav {
     opacity: 0;
     transition: all 0.4s ease;
     color: white;
+    text-decoration: none;
 }
 
-.project-card:hover .card-overlay {
-    opacity: 1;
-    backdrop-filter: blur(10px);
+.card-overlay h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
 }
+
+.card-overlay p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    opacity: 0.8;
+    margin-bottom: 20px;
+    max-width: 90%;
+}
+
+.project-card:hover .card-overlay { opacity: 1; backdrop-filter: blur(8px); }
 
 .view-btn {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%) scale(0);
-    width: 60px;
-    height: 60px;
-    background: white;
-    color: black;
+    width: 60px; height: 60px;
+    background: white; color: black;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
+    display: flex; align-items: center; justify-content: center;
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.project-card:hover .view-btn {
-    transform: translate(-50%, -50%) scale(1);
+.project-card:hover .view-btn { transform: translate(-50%, -50%) scale(1); }
+
+/* --- Hire Button Link --- */
+.hire-btn-link {
+    text-decoration: none;
+}
+
+/* --- Contact Section --- */
+.contact-section {
+    padding: 120px 5%; /* More expansive padding */
+    background: transparent;
+    color: var(--text);
+    position: relative;
+    overflow: hidden;
+    margin-top: 50px;
+    width: 100%; /* Ensure full width */
+}
+
+.contact-container {
+    max-width: 1200px; /* Increased from 800px to fill more width */
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- Formspree Status Messages --- */
+[data-fs-success], [data-fs-error] {
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-align: center;
+    display: none; /* Controlled by SDK */
+}
+
+[data-fs-success] {
+    background: rgba(46, 204, 113, 0.1);
+    color: #27ae60;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+[data-fs-error] {
+    background: rgba(231, 76, 60, 0.1);
+    color: #c0392b;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contact-header h2 {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.contact-header p {
+    font-size: 1.1rem;
+    opacity: 0.7;
+}
+
+.contact-form {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.contact-form input, 
+.contact-form textarea {
+    width: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.contact-form input:focus, 
+.contact-form textarea:focus {
+    outline: none;
+    background: white;
+    border-color: var(--accent);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 20px;
+    background: var(--accent);
+    color: white; /* Changed from #0d1b2a */
+    border: none;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .project-grid { grid-template-columns: 1fr; }
+    .contact-form { padding: 30px; }
+    .contact-header h2 { font-size: 2.5rem; }
 }
