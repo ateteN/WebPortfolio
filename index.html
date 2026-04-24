@@ -13,16 +13,24 @@
     <div class="glass-shape shape-3"></div>
     <div class="glass-shape shape-4"></div>
 
-    <nav>
-        <div class="logo">Atete Norette</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#contact">Contact</a>
-            <a href="#">Resume</a>
-        </div>
-        <a href="#contact" class="hire-btn-link"><button class="hire-btn">HIRE ME ↗</button></a>
-    </nav>
+    <div id="main-wrapper">
+        <nav>
+            <div class="logo">Atete Norette</div>
+            <div class="nav-links" id="nav-menu">
+                <a href="#home">Home</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#contact">Contact</a>
+                <a href="javascript:void(0)" id="open-resume">Resume</a>
+            </div>
+            <div class="nav-actions">
+                <a href="#contact" class="hire-btn-link"><button class="hire-btn">HIRE ME ↗</button></a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
 
     <main>
         <section class="hero" id="home">
@@ -35,7 +43,7 @@
         <section class="project-grid" id="portfolio">
             <a href="https://shecommerce-hub.vercel.app/" class="project-card" target="_blank">
                 <div class="card-inner">
-                    <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80" alt="She Commerce Hub">
+                    <img src="https://github.com/ateteN/Shecommerce-Hub/raw/main/images/image-1.png" alt="She Commerce Hub">
                     <div class="card-overlay">
                         <span>ECOMMERCE / BRANDING</span>
                         <h3>She Commerce Hub</h3>
@@ -47,7 +55,7 @@
 
             <a href="https://github.com/ateteN/My_MoMo.git" class="project-card" target="_blank">
                 <div class="card-inner">
-                    <img src="https://github.com/ateteN/My_MoMo/raw/main/momo-app/src/assets/image-3.png" alt="My Momo">
+                    <img src="https://github.com/ateteN/My_MoMo/raw/main/momo-app/src/assets/image-2.png" alt="My Momo">
                     <div class="card-overlay">
                         <span>FINTECH / DASHBOARD</span>
                         <h3>My momo</h3>
@@ -59,7 +67,7 @@
 
             <a href="https://github.com/ateteN/ViewKigali.git" class="project-card" target="_blank">
                 <div class="card-inner">
-                    <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=800&q=80" alt="ViewKigali">
+                    <img src="https://cdn.dribbble.com/userupload/37237776/file/original-a7cc943c43dffb0d757acef54e5a7a90.png?resize=1200x900&vertical=center" alt="ViewKigali">
                     <div class="card-overlay">
                         <span>FLUTTER / MOBILE APP</span>
                         <h3>ViewKigali</h3>
@@ -118,6 +126,16 @@
             </div>
         </section>
     </main>
+    </div> <!-- End main-wrapper -->
+
+    <div id="resume-viewer" class="resume-viewer" style="display: none;">
+        <div class="resume-header">
+            <button id="close-resume" class="back-btn">← Back to Portfolio</button>
+        </div>
+        <div class="resume-content">
+            <iframe src="assets/AteteNorette_CV_2026.pdf" frameborder="0"></iframe>
+        </div>
+    </div>
 
     <script src="js/script.js"></script>
     <script>

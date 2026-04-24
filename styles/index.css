@@ -6,6 +6,11 @@
     /* --font-main:; */
 }
 
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -16,7 +21,6 @@ html {
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', -apple-system, sans-serif;
-
 }
 
 body {
@@ -53,7 +57,17 @@ nav {
     z-index: 10;
 }
 
-.logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; }
+.logo { 
+    font-weight: 900; 
+    font-size: clamp(1.2rem, 4vw, 1.5rem); 
+    letter-spacing: -1px; 
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 
 .nav-links a {
     text-decoration: none;
@@ -62,6 +76,26 @@ nav {
     font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
+    transition: opacity 0.3s ease;
+}
+
+/* --- Mobile Menu Toggle --- */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 101;
+}
+
+.menu-toggle .bar {
+    height: 3px;
+    width: 100%;
+    background-color: var(--text);
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
 .hire-btn {
@@ -161,28 +195,27 @@ nav {
         transform: translate(100px, 150px) rotate(90deg) scale(1.2); 
     }
 }
-/* --- Project Grid (As per your design) --- */
+/* --- Project Grid --- */
 .project-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    padding: 50px 10%;
+    grid-template-columns: repeat(2, 1fr); /* Exactly 2 columns on desktop */
+    gap: clamp(20px, 4vw, 40px);
+    padding: 50px 5%;
     perspective: 1200px;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 .project-card {
     position: relative;
-    height: 350px; /* Reduced from 500px to be more rectangular */
+    height: 270px; /* Reduced height as requested (~20-25% shorter than 350px) */
     border-radius: 20px;
     overflow: hidden;
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.15s ease; /* Snappy transition during movement */
+    transform-style: preserve-3d;
 }
 
-.project-card:nth-child(odd) { transform: rotateY(5deg); }
-.project-card:nth-child(even) { transform: rotateY(-5deg); }
-
 .project-card:hover {
-    transform: rotateY(0deg) scale(1.02);
     z-index: 10;
 }
 
@@ -342,12 +375,131 @@ nav {
 }
 
 .submit-btn:hover {
-    transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* --- Resume Viewer --- */
+.resume-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+}
+
+.resume-header {
+    padding: 15px 5%;
+    background: #f8f9fa;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+}
+
+.back-btn {
+    background: #0d1b2a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.back-btn:hover {
+    transform: translateX(-5px);
+}
+
+.resume-content {
+    flex: 1;
+    width: 100%;
+}
+
+.resume-content iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Media Queries --- */
 @media (max-width: 768px) {
-    .project-grid { grid-template-columns: 1fr; }
-    .contact-form { padding: 30px; }
-    .contact-header h2 { font-size: 2.5rem; }
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.5s ease;
+        z-index: 100;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+    }
+
+    .nav-links a {
+        margin: 20px 0;
+        font-size: 1.5rem;
+    }
+
+    .hire-btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+
+    .project-card {
+        height: 250px;
+    }
+
+    .contact-form {
+        padding: 30px 20px;
+    }
+
+    .contact-header h2 {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    /* Hamburger Animation */
+    .menu-toggle.active .bar:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active .bar:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-actions {
+        gap: 10px;
+    }
+    
+    .project-grid {
+        padding: 30px 5%;
+    }
+    
+    .contact-section {
+        padding: 60px 5%;
+    }
 }
